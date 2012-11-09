@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link rel="stylesheet" href="Content/display.css" />
+</head>
+<body>
+    <script type="text/template" id="page-view-template">     
+        <header>
+            <h1 class="name" >
+                <%- name %>
+            </h1>
+        </header>
+        <div class="content">
+            <%= renderedContent %>
+        </div>
+    </script>
+    <script type="text/template" id="page-edit-template">     
+        <header>
+            <input type="text" value="<%= name %>" class="name" />
+        </header>
+        <textarea class="content"><%= content %></textarea>
+    </script>
+    <script type="text/template" id="page-template">
+        <div class="edit" />
+        <div class="view" />
+        <br style="clear:both" />
+    </script>
+    <script src="../Scripts/jquery-1.7.2.js"></script>
+    <script src="../Scripts/underscore.js"></script>
+    <script src="../Scripts/backbone.js"></script>
+    <script src="../Scripts/showdown.js"></script>
+    <script src="../Scripts/pages.js"></script>
+</body>
+</html>

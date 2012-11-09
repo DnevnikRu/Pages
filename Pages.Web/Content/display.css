@@ -1,0 +1,46 @@
+﻿body {
+    background: #f8f7f7;
+    font: normal 10px Tahoma, Helvetica, Sans-Serif;
+}
+
+article {
+    /*margin: 20px;*/
+    width: 100%;
+    background: #fff;
+    box-shadow: -3px -3px 3px rgba(0,0,0,0.1);
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+    article .edit, article .view {
+        width:46%;
+        padding: 10px 0 10px 0;
+    }
+
+    article .edit {
+        float: right;
+        padding-right: 2%;
+    }
+
+        article .edit textarea, article .edit input{
+            width: 98%;
+        }
+
+    article .view {
+        padding-left: 2%;
+    }
+
+    
+.clean {
+	display: inline-block;
+}
+
+.clean:after {
+    content: " ";
+    display: block;
+    height: 0;
+    clear: both;
+    overflow: hidden;
+    visibility: hidden;
+}
