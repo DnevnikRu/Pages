@@ -1,20 +1,16 @@
 ﻿$(function () {
-    window.Page = Backbone.Model.extend({
+
+    var Page = Backbone.Model.extend({
         defaults: function () {
             return {
                 name: "new page",
-                content: "empty **page**",
-                renderedContent: ""
+                content: "**empty** content",
             };
         },
         initialize: function () {
             if (!this.get("name")) {
                 this.set({ "name": this.defaults.title });
             }
-        },
-        renderContent: function () {
-            this.set({ renderedContent: (new Showdown.converter()).makeHtml(this.get("content")) });
-            return this;
         },
         idAttribute: 'name',
         urlRoot: "/pages"
@@ -23,13 +19,12 @@
     var PagesCollection = Backbone.Collection.extend({
         model: Page,
         url: "/pages",
-        fetchOne: function (name, success, error) {
+
+        fetchOne: function (name) {
             var page = new Page({ name: name });
-            page.fetch({success:success, errror:error});
+            return page.fetch();
         }
     });
-
-    window.Pages = new PagesCollection;
 
     var PageView = Backbone.View.extend({
         tagName: "article",
@@ -59,8 +54,10 @@
             this.model.set({ content: this.$('.edit .content').val() });
         },
         renderPage: function(){
-            this.model.renderContent();
-            this.$('.view').html(this.viewTemplate(this.model.toJSON()));
+            var viewData = _.extend(this.model.toJSON(), {
+                html: (new Showdown.converter()).makeHtml(this.model.get("content"))
+            });
+            this.$('.view').html(this.viewTemplate(viewData));
         },
         toggleEdit: function () {
             if (this.$('.edit').is(':visible')) {
@@ -74,19 +71,23 @@
     });
 
     var PageStackView = Backbone.View.extend({
-        pages: [],
+        stack: [],
         el: $('body'),
         initialize: function () {
 
         },
-        pushPage: function(page) {
-            this.pages.push(page);
+        pushPage: function(newPage) {
+            var existingPage = _.find(this.stack, function (page) { return page.get('name') == newPage.get('name'); });
+            if (existingPage)
+                this.stack = _.without(this.stack, existingPage);
+            
+            this.stack.push(newPage);
             this.render();
         },
         render: function(){
             this.$el.empty();
-            for (var i = 0; i < this.pages.length; i++) {
-                var view = new PageView({ model: this.pages[i] });
+            for (var i = 0; i < this.stack.length; i++) {
+                var view = new PageView({ model: this.stack[i] });
                 var article = view.render().$el;
                 $(article).css("left", (i+1) * 15 + "px");
                 $(article).css("top", (i+1) * 35 + "px");
@@ -96,15 +97,10 @@
             return this;
         },
         popPage: function () {
-            this.pages.pop();
+            this.stack.pop();
             this.render();
         },
-        navigateToPage: function (name, success, error) {
-            var page = Pages.fetchOne(name, PageStack.pushPage, PageStack.pushPage);
-        }
     });
-
-    window.PageStack = new PageStackView;
 
     var PageRouter = Backbone.Router.extend({
         routes: {
@@ -113,14 +109,22 @@
         }
     });
 
-    var pageRouter = new PageRouter;
+    var app = {}
+    app.pages = new PagesCollection;
+    app.pageStack = new PageStackView;
+    
+    app.pageRouter = new PageRouter;
+    app.pageRouter.on('route:navigateToPage', function (name) {
+        
+        app.pages.fetchOne(name).done(function (data) {
+            app.pageStack.pushPage(new Page(data));
+        }).error(function () {
+            app.pageStack.pushPage(new Page({ name: name }));
+        });
 
-    pageRouter.on('route:navigateToPage', function (name) {
-        PageStack.navigateToPage(name);
     });
 
     Backbone.history.start();
 
-    PageStack.navigateToPage("index");
-    
+    app.pageRouter.navigate('pages/index', {trigger: true});
 });

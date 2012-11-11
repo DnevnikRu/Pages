@@ -142,17 +142,30 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="apple-touch-icon-114x114-precomposed.png" />
+    <Content Include="apple-touch-icon-57x57-precomposed.png" />
+    <Content Include="apple-touch-icon-72x72-precomposed.png" />
+    <Content Include="apple-touch-icon-precomposed.png" />
+    <Content Include="apple-touch-icon.png" />
     <Content Include="Content\display.css" />
+    <Content Include="Content\handheld.css" />
+    <Content Include="Content\style.css" />
     <Content Include="index.html" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <None Include="Scripts\jquery-1.7.2.intellisense.js" />
+    <Content Include="robots.txt" />
     <Content Include="Scripts\backbone.js" />
     <Content Include="Scripts\backbone.min.js" />
+    <Content Include="Scripts\libs\dd_belatedpng.js" />
+    <Content Include="Scripts\libs\jquery-1.5.1.min.js" />
+    <Content Include="Scripts\libs\modernizr-1.7.min.js" />
     <Content Include="Scripts\pages.js" />
     <Content Include="Scripts\jquery-1.7.2.js" />
     <Content Include="Scripts\jquery-1.7.2.min.js" />
     <Content Include="Scripts\modernizr-2.5.3.js" />
+    <Content Include="Scripts\plugins.js" />
+    <Content Include="Scripts\script.js" />
     <Content Include="Scripts\showdown.js" />
     <Content Include="Scripts\showdown.min.js" />
     <Content Include="Scripts\underscore.js" />
@@ -168,6 +181,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_Html5Boilerplate.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
