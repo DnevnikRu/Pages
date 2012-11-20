@@ -4,8 +4,8 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using Pages.Data;
-using Pages.Models;
+using Pages.Data.Entities;
+using Pages.Data.Repositories;
 
 namespace Pages.Controllers
 {

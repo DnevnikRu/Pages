@@ -12,8 +12,9 @@ namespace Pages
     using Ninject.Web.Common;
     using Ninject.Syntax;
 
-    using Pages.Models;
     using Pages.Data;
+    using Pages.Data.Entities;
+    using Pages.Data.Repositories;
 
     using System.Web.Http.Dependencies;
     using System.Collections.Generic;

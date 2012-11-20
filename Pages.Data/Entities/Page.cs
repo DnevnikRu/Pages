@@ -6,7 +6,8 @@ using Pages.Data;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
-namespace Pages.Models
+
+namespace Pages.Data.Entities
 {
     [DataContract(Name = "page")]
     public class Page : IEntity<String>
@@ -22,6 +23,7 @@ namespace Pages.Models
 
         [DataMember(Name = "content")]
         public String Content { get; set; }
+
         public DateTime Modified { get; set; }
     }
 }
