@@ -30,12 +30,8 @@
         tagName: "article",
         template: _.template($('#page-template').html()),
         viewTemplate: _.template($('#page-view-template').html()),
-        editTemplate: _.template($('#page-edit-template').html()),
         events: {
-            "dblclick .view .name": "toggleEdit",
-            "dblclick .view .content": "toggleEdit",
-            "keyup .edit .name": "editPage",
-            "keyup .edit .content": "editPage"
+            "click": "navigateToPage"
         },
         initialize: function () {
             this.model.bind('change', this.renderPage, this);
@@ -46,12 +42,18 @@
 
             this.renderPage();
 
-            this.$('.edit').hide();
+            var model = this.model;
+            var view = this;
+
+            this.$('.view .content').editable(function (value, settings) { return (value); }, {
+                type: 'autogrow',
+                submit: 'OK',
+                event: 'dblclick',
+                data: function (value, settings) { return model.get('content') },
+                callback: function (value, settings) { model.set('content', value); model.save(); view.render(); }
+            });
+
             return this;
-        },
-        editPage: function () {
-            this.model.set({ name: this.$('.edit .name').val() });
-            this.model.set({ content: this.$('.edit .content').val() });
         },
         renderPage: function(){
             var viewData = _.extend(this.model.toJSON(), {
@@ -59,14 +61,8 @@
             });
             this.$('.view').html(this.viewTemplate(viewData));
         },
-        toggleEdit: function () {
-            if (this.$('.edit').is(':visible')) {
-                this.$('.edit').empty();
-                this.$('.edit').hide();
-            } else {
-                this.$('.edit').html(this.editTemplate(this.model.toJSON()));
-                this.$('.edit').show();
-            }
+        navigateToPage: function () {
+            Backbone.history.navigate('pages/' + this.model.get('name'), true);
         }
     });
 
