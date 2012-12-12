@@ -10,7 +10,9 @@ using Pages.Data.Entities;
 
 namespace Pages.Controllers
 {
-    public abstract class ApiController<TResource, TIdentifier> : ApiController where TResource : IEntity<TIdentifier> where TIdentifier : class
+    public abstract class ApiController<TResource, TIdentifier> : ApiController 
+        where TResource : class, IEntity<TIdentifier>
+        where TIdentifier : class
     {
         protected readonly IRepository<TResource, TIdentifier> repo;
 

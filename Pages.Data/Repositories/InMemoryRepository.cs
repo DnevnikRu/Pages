@@ -8,7 +8,7 @@ using Pages.Data;
 namespace Pages.Data.Repositories
 {
     public class InMemoryRepository<TEntity, TIdentifier> : IRepository<TEntity, TIdentifier> 
-        where TEntity : IEntity<TIdentifier>
+        where TEntity : class, IEntity<TIdentifier>
         where TIdentifier : class
     {
         readonly IList<TEntity> objects = new List<TEntity>();

@@ -13,7 +13,8 @@ namespace Pages.Controllers
     {
         public PagesController(IRepository<Page,String> repo) : base(repo)
         {
-            this.repo.Save(new Page { Name = "index", Content = " Empty index page \n Create [new](#pages/new) ?" });
+            //this.repo.Save(new Page { Name = "index", Content = " Empty index page  Create [new](#pages/new) ?" });
+            //this.repo.Save(new Page { Name = "new", Content = " Empty index page  Create [new](#pages/new) ?" });
         }
     }
 }

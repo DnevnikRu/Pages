@@ -9,10 +9,9 @@ using Pages.Data.Entities;
 
 namespace Pages.Data.Repositories.EF
 {
-    class PagesContext : DbContext
+    public class PagesContext : Pages.Data.Repositories.EntityFramework.DbContext
     {
         public DbSet<Page> Pages { get; set; }
-
-        public PagesContext() { }
+        public PagesContext(String connectionString) : base(connectionString) { }
     }
 }

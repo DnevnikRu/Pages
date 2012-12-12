@@ -18,6 +18,8 @@ namespace Pages
 
     using System.Web.Http.Dependencies;
     using System.Collections.Generic;
+    using Pages.Data.Repositories.EF;
+    using System.Configuration;
 
     public static class NinjectWebCommon 
     {
@@ -61,7 +63,9 @@ namespace Pages
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            kernel.Bind<IRepository<Page, String>>().ToConstant(new InMemoryRepository<Page, String>());
+            //kernel.Bind<IRepository<Page, String>>().ToConstant(new InMemoryRepository<Page, String>());
+            kernel.Bind<IRepository<Page, String>>().ToConstructor(args => new EFRepository<Page, String, PagesContext>("PagesContext"));
+                //ToConstructor(() => new EFRepository<Page, String>(typeof(PagesContext), ConfigurationManager.ConnectionStrings["PagesContext"]));
         }        
     }
 

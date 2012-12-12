@@ -6,24 +6,21 @@ using Pages.Data;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Pages.Data.Entities
 {
     [DataContract(Name = "page")]
-    public class Page : IEntity<String>
+    public class Page : IEntity<String>, IHasModifiedDatetime
     {
-        public String Id
-        {
-            get { return this.Name;  }
-            set { this.Name = value; }
-        }
-
+        [Key]
         [DataMember(Name = "name")]
-        public String Name { get; set; }
+        public String Id { get; set; }
 
         [DataMember(Name = "content")]
         public String Content { get; set; }
 
-        public DateTime Modified { get; set; }
+        [DataMember(Name="modifiedAt")]
+        public DateTime ModifiedAt { get; set; }
     }
 }

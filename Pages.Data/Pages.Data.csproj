@@ -46,7 +46,9 @@
     <Reference Include="System.Xml.Serialization" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\IHasModifiedDatetime.cs" />
     <Compile Include="Repositories\EFRepository.cs" />
+    <Compile Include="Repositories\EntityFramework\DbContext.cs" />
     <Compile Include="Repositories\EntityFramework\PagesContext.cs" />
     <Compile Include="Entities\IEntity.cs" />
     <Compile Include="Repositories\InMemoryRepository.cs" />
